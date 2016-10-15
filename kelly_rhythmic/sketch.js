@@ -2,9 +2,19 @@ var tran = 30;
 var easing = 0.3;
 var speed = 10;
 var triangle_color, circle_color, ellipse_color, small_circle_color;
+var sound;
+var bar = 20;
+
+// try to play sound, but it's not allowed so I commented it.
+/*
+function preload() {
+  soundFormats('ogg', 'mp3');
+  sound = loadSound('back.ogg');
+}
+*/
+
 
 function setup() {
-  
   createCanvas(600, 600);  
   background(255);
   // not too fast!
@@ -14,12 +24,15 @@ function setup() {
   ellipse_color = color(255, 104, 200, 100);
   small_circle_color = color(222, 204, 255, 100);
   
+  // play backing track, but it's not allowed so I comment it off
+  // sound.play();
+  
 }
 
 function draw() {
   
   // refresh bg each time, so that it won't be overlapping
-  background(255);
+  background(bar);
   translate(width/2, height/2);
   
   // press keys to rotate the whole thing!!!!
@@ -47,6 +60,12 @@ function draw() {
   tran += easing * (110 - diff);
   if (tran >= 150) { 
     tran = 0;
+    bar += 60;
+  }
+  
+  // 4 beats represents 1 bar!
+  if (bar >= 255) {
+    bar = 20;
   }
   
   // build textures
