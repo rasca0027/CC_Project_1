@@ -118,15 +118,19 @@ function draw() {
 
 function notes_trail(t) {
   noStroke();
-  fill(4, 217, 96);
+  
   rectMode(CENTER);
   if (t == 0) {
+    fill(204, 255, 229);
     rect(520, 520, 40, 40);
   } else if (t == 1) {
+    fill(153, 255, 204);
     rect(80, 520, 40, 40);
   } else if (t == 2) {
+    fill(102, 255, 178);
     rect(80, 80, 40, 40);
   } else if (t == 3) {
+    fill(51, 255, 153);
     rect(520, 80, 40, 40);
   }
     
