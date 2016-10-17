@@ -5,6 +5,7 @@ var triangle_color, circle_color, ellipse_color, small_circle_color, outer_trian
 var sound;
 var bar = 20;
 var beat = 0;
+var stress = [];
 
 // try to play sound, but it's not allowed so I commented it.
 /*
@@ -28,6 +29,11 @@ function setup() {
   ellipse_color = color(255, 104, 200, 100);
   small_circle_color = color(222, 204, 255, 100);
   outer_triangle_color = color(157, 82, 145, 80);
+  
+  // initial stress
+  for(var i=0;i<=7;i++) {
+    stress[i] = [0, 0, i * 45];
+  }
   
   // play backing track, but it's not allowed so I comment it off
   // sound.play();
@@ -74,6 +80,7 @@ function draw() {
     bar += 60;
     beat ++;
     beat = beat % 4;
+    reset_star();
     console.log(beat);
   }
   
@@ -118,20 +125,61 @@ function draw() {
 
 function notes_trail(t) {
   noStroke();
-  
+  // stress the beats on every Crotchet
   rectMode(CENTER);
   if (t == 0) {
+    push();
     fill(204, 255, 229);
-    rect(520, 520, 40, 40);
+    translate(520, 520);
+    rect(0, 0, 40, 40);
+    draw_star();
+    pop();
   } else if (t == 1) {
+    push();
     fill(153, 255, 204);
-    rect(80, 520, 40, 40);
+    translate(80, 520);
+    rect(0, 0, 40, 40);
+    draw_star();
+    pop();
   } else if (t == 2) {
+    push();
     fill(102, 255, 178);
-    rect(80, 80, 40, 40);
+    translate(80, 80);
+    rect(0, 0, 40, 40);
+    draw_star();
+    pop();
   } else if (t == 3) {
+    push();
     fill(51, 255, 153);
-    rect(520, 80, 40, 40);
+    translate(520, 80);
+    rect(0, 0, 40, 40);
+    draw_star();
+    pop();
   }
     
+}
+
+function reset_star() {
+  // reset to the original coordinates
+  for(var i=0;i<=7;i++) {
+    stress[i] = [0, 0, i * 45];
+  }
+}
+
+function draw_star() {
+  // eight directions
+  for (var i=0;i<=7;i++) {
+    stroke(255, 255, 0);
+    strokeWeight(5);
+    var degree = radians(stress[i][2]);
+    var old_x = stress[i][0];
+    var old_y = stress[i][1];
+    var new_x = old_x + 10 * cos(degree);
+    var new_y = old_y + 10 * sin(degree);
+    line(old_x, old_y, new_x, new_y);
+    stress[i][0] = new_x;
+    stress[i][1] = new_y;
+    strokeWeight(2);
+    noStroke();
+  }
 }
